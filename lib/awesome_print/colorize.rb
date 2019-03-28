@@ -9,15 +9,8 @@ module AwesomePrint
       str = CGI.escapeHTML(str) if options[:html]
       if options[:plain] || !options[:color][type] || !inspector.colorize?
         str
-      #
-      # Check if the string color method is defined by awesome_print and accepts
-      # html parameter or it has been overriden by some gem such as colorize.
-      #
-      elsif str.method(options[:color][type]).arity == -1 # Accepts html parameter.
-        str.send(options[:color][type], options[:html])
       else
-        str = %Q|<kbd style="color:#{options[:color][type]}">#{str}</kbd>| if options[:html]
-        str.send(options[:color][type])
+        str.send(String::AP_METHOD_PREFIX+options[:color][type].to_s, options[:html])
       end
     end
   end

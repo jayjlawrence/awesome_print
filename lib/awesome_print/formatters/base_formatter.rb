@@ -114,6 +114,7 @@ module AwesomePrint
       end
 
       def indent
+        options[:html]
         ' ' * indentation
       end
 

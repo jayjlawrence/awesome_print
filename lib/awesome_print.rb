@@ -13,6 +13,7 @@ unless defined?(AwesomePrint::Inspector)
   end
 
   require 'awesome_print/custom_defaults'
+  require 'awesome_print/color_chart'
   require 'awesome_print/inspector'
   require 'awesome_print/formatter'
   require 'awesome_print/version'
