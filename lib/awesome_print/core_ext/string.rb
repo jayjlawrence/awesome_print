@@ -31,18 +31,15 @@ class String
   AP_HTML_COLOR.keys.each_with_index do |color, color_index|
 
     [ AP_METHOD_PREFIX+color, AP_METHOD_PREFIX+color+'!', AP_METHOD_PREFIX+color+'ish'].each_with_index do |method, variant|
-      ansi_color=30+color_index
-      ansi_effect=variant
+      ansi_color=30+color_index # 30, 31, 32, etc
+      ansi_effect=variant # 0, 1, 2 from index
 
       html_color='#'+AP_HTML_COLOR[color][variant]
 
-      STDERR.puts "Defining #{method} ANSI #{ansi_color};#{ansi_effect} HTML #{html_color}"
-
       define_method method do |*html|
-        html[0] ? %Q|<kbd style="color:#{html_color}">#{self}</kbd>| : "\e[#{30 + i};#{variant}m#{self}\e[0m"
+        html[0] ? %Q|<kbd style="color:#{html_color}">#{self}</kbd>| : "\e[#{ansi_color};#{ansi_effect}m#{self}\e[0m"
       end
     end
-
   end
 
   alias_method(AP_METHOD_PREFIX+'grey', AP_METHOD_PREFIX+'gray')
